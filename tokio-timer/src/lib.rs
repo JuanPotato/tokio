@@ -9,13 +9,18 @@
 //! * [`Deadline`]: Wraps a future, requiring it to complete before a specified
 //!   instant in time, erroring if the future takes too long.
 //!
-//! These three types are backed by a [`Timer`] instance. In order for
-//! [`Delay`], [`Interval`], and [`Deadline`] to function, the associated
-//! [`Timer`] instance must be running on some thread.
+//! * [`StreamTimeout`]: Wraps a stream, requiring it to return each next value
+//!   within a certain amount of time, returning `Ok(Ready(None))` to stop the
+//!   stream when it takes too long.
+//!
+//! These four types are backed by a [`Timer`] instance. In order for
+//! [`Delay`], [`Interval`], [`Deadline`], and [`StreamTimeout`] to function, 
+//! the associated [`Timer`] instance must be running on some thread.
 //!
 //! [`Delay`]: struct.Delay.html
 //! [`Deadline`]: struct.Deadline.html
 //! [`Interval`]: struct.Interval.html
+//! [`StreamTimeout`]: struct.StreamTimeout.html
 //! [`Timer`]: timer/struct.Timer.html
 
 #![doc(html_root_url = "https://docs.rs/tokio-timer/0.2.4")]
@@ -34,7 +39,7 @@ mod deadline;
 mod delay;
 mod error;
 mod interval;
-mod stream_deadline;
+mod stream_timeout;
 
 use std::time::{Duration, Instant};
 
@@ -42,7 +47,7 @@ pub use self::deadline::{Deadline, DeadlineError};
 pub use self::delay::Delay;
 pub use self::error::Error;
 pub use self::interval::Interval;
-pub use self::stream_deadline::StreamDeadline;
+pub use self::stream_timeout::StreamTimeout;
 pub use self::timer::{with_default, Timer};
 
 /// Create a Future that completes in `duration` from now.
