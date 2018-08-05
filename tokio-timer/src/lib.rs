@@ -34,6 +34,7 @@ mod deadline;
 mod delay;
 mod error;
 mod interval;
+mod stream_deadline;
 
 use std::time::{Duration, Instant};
 
@@ -41,6 +42,7 @@ pub use self::deadline::{Deadline, DeadlineError};
 pub use self::delay::Delay;
 pub use self::error::Error;
 pub use self::interval::Interval;
+pub use self::stream_deadline::StreamDeadline;
 pub use self::timer::{with_default, Timer};
 
 /// Create a Future that completes in `duration` from now.
